@@ -93,7 +93,7 @@ export class ValuesInputerComponent implements OnInit {
     }
 
     allowOnlyNumber(e: KeyboardEvent) {
-        if (isNaN(parseInt(e.key, 10))) {
+        if (isNaN(parseInt(e.key, 10)) && e.key !== 'Tab') {
             e.preventDefault();
         }
     }
