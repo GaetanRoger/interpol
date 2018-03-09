@@ -7,19 +7,19 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class EquationComponent implements OnInit {
     @Input()
-    private equation: string;
+    equation: string;
 
     @Input()
-    private result: number;
+    result: number;
 
     @Input()
-    private xLabel: string;
+    xLabel: string;
 
     @Input()
-    private xValue: number;
+    xValue: number;
 
     @Input()
-    private multiline: boolean;
+    multiline: boolean;
 
     get forXEquals() {
         return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.xLabel + '=' + this.xValue;
