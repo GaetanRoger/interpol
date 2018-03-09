@@ -74,6 +74,10 @@ export class LagrangeService {
         values: { x: number, y: number }[],
         x: number
     ): number {
+        if (!x) {
+            return null;
+        }
+
         const fracs: { x: number; value: number; }[] = values.map(value => {
             // We retrieve all values except the one we are currently computing
             const otherValues = values.filter(v => v.x !== value.x);

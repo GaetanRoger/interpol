@@ -32,6 +32,14 @@ export class AppComponent implements AfterContentChecked {
         }
     ];
 
+    private x: number;
+
+    private xLabel = 'x';
+
+    get forXEquals() {
+        return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.xLabel + '=' + this.x;
+    }
+
     constructor(readonly lagrange: LagrangeService) {
     }
 
@@ -57,8 +65,11 @@ export class AppComponent implements AfterContentChecked {
     }
 
     private remove(value) {
-        console.log('value', value);
         this.values = this.values.filter(v => v.x !== value.x || v.y !== value.y);
+
+        while (this.values.length < 2) {
+            this.values.push({x: null, y: null});
+        }
     }
 
     private onKeyDown(key: string, e: KeyboardEvent) {
@@ -78,8 +89,9 @@ export class AppComponent implements AfterContentChecked {
         this.equation = this.lagrange.generateEquation(values, {
             calculateDenominator: false,
             addName: true,
+            x: this.xLabel
         });
 
-        this.result = this.lagrange.computeEquation(values, 5);
+        this.result = this.lagrange.computeEquation(values, this.x);
     }
 }
