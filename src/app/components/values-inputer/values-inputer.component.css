@@ -1,0 +1,16 @@
+.mat-card {
+    text-align: center;
+}
+
+@media screen and (max-width: 640px) {
+    .line {
+        display: flex;
+        justify-content: center;
+    }
+
+    .field {
+        width: 30%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}

@@ -1,41 +1,20 @@
 <app-topbar></app-topbar>
 
-<div [appTex]="equation + (result ? ('=' + result.toFixed(3) + forXEquals): '')" style="min-height: 110px"></div>
+<div id="content">
+    <app-equation [equation]="equation"
+                  [xLabel]="xLabel"
+                  [xValue]="x"
+                  [result]="result"></app-equation>
 
-<h2>Valeurs</h2>
-<div *ngFor="let value of values">
-    <div>
-        <mat-form-field>
-            <input matInput
-                   type="text"
-                   placeholder="x"
-                   [(ngModel)]="value.x"
-                   spellcheck="false"
-            >
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput
-                   type="text"
-                   placeholder="f(x)"
-                   [(ngModel)]="value.y"
-                   spellcheck="false"
-                   (keydown)="onKeyDown($event.key, $event)">
-        </mat-form-field>
-        <button mat-icon-button (click)="remove(value)" tabindex="-1" color="primary">
-            <mat-icon aria-label="Remove line">delete</mat-icon>
-        </button>
-    </div>
-</div>
-<div>
-    <button mat-mini-fab (click)="add()">
-        <mat-icon aria-label="Add button">add</mat-icon>
-    </button>
-</div>
+    <app-values-inputer
+            (valuesChanged)="values = $event"
+    ></app-values-inputer>
 
-<mat-form-field>
-    <input matInput
-           type="text"
-           placeholder="Calculer pour la valeur..."
-           [(ngModel)]="x"
-           spellcheck="false">
-</mat-form-field>
+    <mat-form-field>
+        <input matInput
+               type="text"
+               placeholder="Calculer pour la valeur..."
+               [(ngModel)]="x"
+               spellcheck="false">
+    </mat-form-field>
+</div>

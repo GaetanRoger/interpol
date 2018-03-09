@@ -6,9 +6,11 @@ import {AppComponent} from './app.component';
 import {TexDirective} from './directives/tex/tex.directive';
 import {LagrangeService} from './services/lagrange/lagrange.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {TopbarComponent} from './components/topbar/topbar.component';
+import { EquationComponent } from './components/equation/equation.component';
+import { ValuesInputerComponent } from './components/values-inputer/values-inputer.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import {TopbarComponent} from './components/topbar/topbar.component';
         AppComponent,
         TexDirective,
         TopbarComponent,
+        EquationComponent,
+        ValuesInputerComponent,
     ],
     imports: [
         BrowserModule,
@@ -25,7 +29,8 @@ import {TopbarComponent} from './components/topbar/topbar.component';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatCardModule
     ],
     providers: [LagrangeService],
     bootstrap: [AppComponent]

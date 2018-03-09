@@ -1,0 +1,8 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Equation de Lagrange</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div [appTex]="equation + (result ? ('=' + result.toFixed(3) + forXEquals): '')"></div>
+    </mat-card-content>
+</mat-card>

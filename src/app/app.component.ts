@@ -21,7 +21,7 @@ export class AppComponent implements AfterContentChecked {
      * Values to use for the equation.
      * @type {x: number|null; y: number|null}[]
      */
-    private values: { x: number; y: number }[] = [
+    values: { x: number; y: number }[] = [
         {
             x: null,
             y: null
