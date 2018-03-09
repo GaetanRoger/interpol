@@ -21,7 +21,6 @@ export class LagrangeService {
         values: { x: number, y: number }[],
         options: GenerateEquationOptions): string {
         options = {...this.defaultGenerateEquationOptions, ...options};
-        console.log(options);
 
         const x = options.x;
         const calculateDenominator = options.calculateDenominator;
@@ -101,6 +100,6 @@ export class LagrangeService {
             return value.y * fracs.find(frac => frac.x === value.x).value;
         });
 
-        return fracsAndYs.reduce((pre, curr) => pre + curr);
+        return fracsAndYs.reduce((pre, curr) => pre + curr, null);
     }
 }

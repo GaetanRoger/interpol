@@ -1,4 +1,4 @@
-<div [appTex]="equation" style="min-height: 110px"></div>
+<div [appTex]="equation + (result ? '=' + result : '')" style="min-height: 110px"></div>
 
 <h2>Valeurs</h2>
 <div *ngFor="let value of values">
@@ -15,8 +15,12 @@
                    type="text"
                    placeholder="f(x)"
                    [(ngModel)]="value.y"
-                   spellcheck="false">
+                   spellcheck="false"
+            (keydown)="onKeyDown($event.key, $event)">
         </mat-form-field>
+        <button mat-mini-fab (click)="remove(value)" tabindex="-1">
+            <mat-icon aria-label="Remove line">remove</mat-icon>
+        </button>
     </div>
 </div>
 
