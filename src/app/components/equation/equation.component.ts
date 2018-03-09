@@ -18,6 +18,9 @@ export class EquationComponent implements OnInit {
     @Input()
     private xValue: number;
 
+    @Input()
+    private multiline: boolean;
+
     get forXEquals() {
         return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.xLabel + '=' + this.xValue;
     }

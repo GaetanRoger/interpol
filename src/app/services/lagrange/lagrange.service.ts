@@ -8,7 +8,8 @@ export class LagrangeService {
         x: 'x',
         calculateDenominator: false,
         addName: false,
-        name: '\\Pi'
+        name: '\\Pi',
+        multiline: false
     };
 
     constructor() {
@@ -24,6 +25,8 @@ export class LagrangeService {
 
         const x = options.x;
         const calculateDenominator = options.calculateDenominator;
+        const alignSymbol = options.multiline ? '&' : '';
+        const alignNewLine = options.multiline ? '\\\\' : '';
 
         // For all values, we want to compute its fraction
         const fracs: { x: number, frac: string }[] = values.map(value => {
@@ -60,14 +63,16 @@ export class LagrangeService {
         });
 
         // Concatenate all fractions
-        const fullEquation = fracAndYs.join('+');
+        const fullEquation = fracAndYs.join(alignNewLine + alignSymbol + '+');
 
         // If a name is desired, adds it and return the full equation
+        let final = '';
         if (options.addName) {
-            return options.name + '_{' + values.length + '} (' + options.x + ') = ' + fullEquation;
-        } else {
-            return fullEquation;
+            final += options.name + '_{' + values.length + '} (' + options.x + ') ' + alignSymbol + '= ';
         }
+        final += fullEquation;
+
+        return final;
     }
 
     computeEquation(

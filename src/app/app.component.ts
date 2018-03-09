@@ -1,5 +1,6 @@
 import {AfterContentChecked, Component} from '@angular/core';
 import {LagrangeService} from './services/lagrange/lagrange.service';
+import {GenerateEquationOptions} from './services/lagrange/generate-equation-options';
 
 @Component({
     selector: 'app-root',
@@ -31,6 +32,11 @@ export class AppComponent implements AfterContentChecked {
             y: null
         }
     ];
+
+    options: GenerateEquationOptions = {
+        multiline: false,
+        calculateDenominator: false
+    };
 
     private x: number;
 
@@ -87,9 +93,11 @@ export class AppComponent implements AfterContentChecked {
 
     private updateEquation(values: { x: number; y: number }[]) {
         this.equation = this.lagrange.generateEquation(values, {
-            calculateDenominator: false,
-            addName: true,
-            x: this.xLabel
+            ...{
+                calculateDenominator: false,
+                addName: true,
+                x: this.xLabel
+            }, ...this.options
         });
 
         this.result = this.lagrange.computeEquation(values, this.x);

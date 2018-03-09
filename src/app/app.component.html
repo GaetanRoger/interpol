@@ -4,17 +4,26 @@
     <app-equation [equation]="equation"
                   [xLabel]="xLabel"
                   [xValue]="x"
-                  [result]="result"></app-equation>
+                  [result]="result"
+                  [multiline]="options.multiline"></app-equation>
 
     <app-values-inputer
             (valuesChanged)="values = $event"
+            (xValueChanged)="x = $event"
     ></app-values-inputer>
-
-    <mat-form-field>
-        <input matInput
-               type="text"
-               placeholder="Calculer pour la valeur..."
-               [(ngModel)]="x"
-               spellcheck="false">
-    </mat-form-field>
+    <mat-card style="margin-top: 5px">
+        <mat-card-header>
+            <mat-card-title>
+                Options
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-checkbox [(ngModel)]="options.multiline">Multi lignes</mat-checkbox>
+            <br>
+            <mat-checkbox [(ngModel)]="options.calculateDenominator">Simplifier le dénominateur</mat-checkbox>
+        </mat-card-content>
+    </mat-card>
+    <p>
+        Pour exporter le code LaTeX, cliquer droit sur la formule, puis « Show Math As » et « TeX Commands ».
+    </p>
 </div>

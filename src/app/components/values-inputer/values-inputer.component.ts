@@ -6,10 +6,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
     styleUrls: ['./values-inputer.component.css']
 })
 export class ValuesInputerComponent implements OnInit {
-    @Output()
-    valuesChanged = new EventEmitter<{ x: number | null; y: number | null }[]>();
+    //
+    // CONSTS
+    //
 
-    private values: { x: number | null; y: number | null }[] = [
+    private readonly DEFAULT_VALUES: { x: number | null; y: number | null }[] = [
         {
             x: null,
             y: null
@@ -21,11 +22,45 @@ export class ValuesInputerComponent implements OnInit {
     ];
 
 
+    //
+    // INPUT/OUTPUT
+    //
+
+    @Output()
+    valuesChanged = new EventEmitter<{ x: number | null; y: number | null }[]>();
+
+    @Output()
+    xValueChanged = new EventEmitter<number>();
+
+
+    //
+    // PROPERTIES
+    //
+
+    private values: { x: number | null; y: number | null }[] = this.DEFAULT_VALUES;
+
+    private xValue: number;
+
+
+    //
+    // CONSTRUCTOR
+    //
+
     constructor() {
     }
 
+
+    //
+    // LIFECYCLE HOOKS
+    //
+
     ngOnInit() {
     }
+
+
+    //
+    // METHODS CALLED FROM VIEW
+    //
 
     private add() {
         this.values.push({x: null, y: null});
@@ -39,12 +74,36 @@ export class ValuesInputerComponent implements OnInit {
         }
     }
 
-    private onKeyDown(key: string, e: KeyboardEvent) {
-        if (key === 'Tab' && !e.ctrlKey) {
-            if (this.values.find(v => !v.x && !v.y) === undefined) {
+    private onKeyDown(key: string, e: KeyboardEvent, index: number) {
+        // Checking only Tab is pressed
+        if (key === 'Tab' && !e.ctrlKey && !e.shiftKey) {
+            // Checking we are on the last line and there is no line with empty values
+            if (index === this.values.length - 1 && this.values.find(v => !v.x && !v.y) === undefined) {
                 this.values.push({x: null, y: null});
             }
         }
     }
 
+    private generateSubFromIndex(index: number): string {
+        if (index < 10) {
+            return String.fromCharCode(parseInt('208' + index, 16));
+        }
+
+        return index.toString();
+    }
+
+    private allowOnlyNumber(e: KeyboardEvent) {
+        if (isNaN(parseInt(e.key, 10))) {
+            e.preventDefault();
+        }
+    }
+
+    private reset() {
+        this.values.forEach(v => this.remove(v));
+        this.xValue = undefined;
+
+        this.valuesChanged.emit(this.values);
+        this.xValueChanged.emit(this.xValue);
+
+    }
 }

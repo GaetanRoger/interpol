@@ -1,37 +1,64 @@
 <mat-card>
+
+    <!-- HEADER -->
+
     <mat-card-header>
         <mat-card-title>
             Points à utiliser
         </mat-card-title>
     </mat-card-header>
-    <mat-card-content *ngFor="let value of values">
+
+    <!-- CONTENT -->
+
+    <mat-card-content *ngFor="let value of values; let i = index">
         <div class="line">
             <mat-form-field class="field">
                 <input matInput
                        type="text"
-                       placeholder="x"
+                       placeholder="x{{generateSubFromIndex(i)}}"
                        [(ngModel)]="value.x"
                        (ngModelChange)="valuesChanged.emit(values)"
+                       (keypress)="allowOnlyNumber($event)"
                        spellcheck="false"
                 >
             </mat-form-field>
             <mat-form-field class="field">
                 <input matInput
                        type="text"
-                       placeholder="f(x)"
+                       placeholder="f(x{{generateSubFromIndex(i)}})"
                        [(ngModel)]="value.y"
                        (ngModelChange)="valuesChanged.emit(values)"
                        spellcheck="false"
-                       (keydown)="onKeyDown($event.key, $event)">
+                       (keydown)="onKeyDown($event.key, $event, i)"
+                       (keypress)="allowOnlyNumber($event)">
             </mat-form-field>
-            <button mat-icon-button (click)="remove(value)" tabindex="-1" color="primary">
+            <button mat-icon-button (click)="remove(value)" tabindex="-1" color="primary"
+                    [disabled]="values.length <=2">
                 <mat-icon aria-label="Remove line">delete</mat-icon>
             </button>
         </div>
     </mat-card-content>
+
+    <!-- ADD BUTTON -->
+
     <div class="add-button">
-        <button mat-mini-fab (click)="add()">
-            <mat-icon aria-label="Add button">add</mat-icon>
-        </button>
+        <button mat-raised-button color="primary" (click)="add()">Ajouter un point</button>
+        <button mat-raised-button (click)="reset()">Remettre à zéro</button>
     </div>
+
+    <!-- FOOTER -->
+
+    <mat-card-footer>
+        <mat-form-field class="example-full-width" floatLabel="never">
+            <span matPrefix style="padding-right: 3px">Calculer pour x = </span>
+            <input type="text"
+                   matInput
+                   placeholder="42"
+                   spellcheck="false"
+                   (keypress)="allowOnlyNumber($event)"
+                   [(ngModel)]="xValue"
+                   (ngModelChange)="xValueChanged.emit($event)"
+            >
+        </mat-form-field>
+    </mat-card-footer>
 </mat-card>
