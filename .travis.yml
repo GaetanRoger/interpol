@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - $NODE_VERSION
+  - '9.5.0'
 
 addons:
 apt:
@@ -24,3 +24,14 @@ before_script:
 - npm build
 
 script: karma start karma.conf.js --single-run
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: $AWS_BUCKET
+  skip_cleanup: true
+  local_dir: dist
+  acl: public_read
+  on:
+      branch: feature/setup-travis
