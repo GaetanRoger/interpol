@@ -25,6 +25,9 @@ before_script:
 
 script: karma start karma.conf.js --single-run
 
+befor_deploy:
+  - ls
+
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY
