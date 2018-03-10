@@ -3,6 +3,8 @@
         <mat-card-title>Equation de Lagrange</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div [appTex]="(multiline ? '\\begin{align}':'') + equation + (result ? ((multiline ? '\\\\&':'') + '=' + result.toFixed(3) + forXEquals): '') + (multiline ? '\\end{align}':'')"></div>
+        <div id="equation"
+             [appTex]="(multiline ? '\\begin{align}':'') + equation + (result ? ((multiline ? '\\\\&':'') + '=' + result.toFixed(3) + forXEquals): '') + (multiline ? '\\end{align}':'')"
+        ></div>
     </mat-card-content>
 </mat-card>
