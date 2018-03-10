@@ -11,12 +11,12 @@ export class AppComponent implements AfterContentChecked {
     /**
      * LaTeX equation to be displayed.
      */
-    private equation: string;
+    equation: string;
 
     /**
      * Actual result of the equation after being calculated.
      */
-    private result: number;
+    result: number;
 
     /**
      * Values to use for the equation.
@@ -38,9 +38,9 @@ export class AppComponent implements AfterContentChecked {
         calculateDenominator: false
     };
 
-    private x: number;
+    x: number;
 
-    private xLabel = 'x';
+    xLabel = 'x';
 
     get forXEquals() {
         return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.xLabel + '=' + this.x;

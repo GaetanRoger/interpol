@@ -37,9 +37,9 @@ export class ValuesInputerComponent implements OnInit {
     // PROPERTIES
     //
 
-    private values: { x: number | null; y: number | null }[] = this.DEFAULT_VALUES;
+    values: { x: number | null; y: number | null }[] = this.DEFAULT_VALUES;
 
-    private xValue: number;
+    xValue: number;
 
 
     //
@@ -62,11 +62,11 @@ export class ValuesInputerComponent implements OnInit {
     // METHODS CALLED FROM VIEW
     //
 
-    private add() {
+    add() {
         this.values.push({x: null, y: null});
     }
 
-    private remove(value) {
+    remove(value) {
         this.values = this.values.filter(v => v.x !== value.x || v.y !== value.y);
 
         while (this.values.length < 2) {
@@ -74,7 +74,7 @@ export class ValuesInputerComponent implements OnInit {
         }
     }
 
-    private onKeyDown(key: string, e: KeyboardEvent, index: number) {
+    onKeyDown(key: string, e: KeyboardEvent, index: number) {
         // Checking only Tab is pressed
         if (key === 'Tab' && !e.ctrlKey && !e.shiftKey) {
             // Checking we are on the last line and there is no line with empty values
@@ -84,7 +84,7 @@ export class ValuesInputerComponent implements OnInit {
         }
     }
 
-    private generateSubFromIndex(index: number): string {
+    generateSubFromIndex(index: number): string {
         if (index < 10) {
             return String.fromCharCode(parseInt('208' + index, 16));
         }
@@ -92,13 +92,13 @@ export class ValuesInputerComponent implements OnInit {
         return index.toString();
     }
 
-    private allowOnlyNumber(e: KeyboardEvent) {
-        if (isNaN(parseInt(e.key, 10))) {
+    allowOnlyNumber(e: KeyboardEvent) {
+        if (isNaN(parseInt(e.key, 10)) && e.key !== 'Tab') {
             e.preventDefault();
         }
     }
 
-    private reset() {
+    reset() {
         this.values.forEach(v => this.remove(v));
         this.xValue = undefined;
 
