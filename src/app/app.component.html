@@ -2,7 +2,7 @@
 
 <div id="content">
     <app-equation [equation]="equation"
-                  [xLabel]="xLabel"
+                  [xLabel]="options.x"
                   [xValue]="x"
                   [result]="result"
                   [multiline]="options.multiline"></app-equation>
@@ -18,9 +18,36 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <mat-form-field class="field">
+                <input matInput
+                       type="text"
+                       placeholder="Nom de l'inconnue"
+                       [(ngModel)]="options.x"
+                       spellcheck="false"
+                >
+            </mat-form-field>
+            <br>
             <mat-checkbox [(ngModel)]="options.multiline">Multi lignes</mat-checkbox>
             <br>
             <mat-checkbox [(ngModel)]="options.calculateDenominator">Simplifier le dénominateur</mat-checkbox>
+            <br>
+            <mat-checkbox [(ngModel)]="options.addName">Ajouter le nom de la fonction</mat-checkbox>
+
+            <div *ngIf="options.addName">
+                <br>
+                <mat-form-field class="field">
+                    <input matInput
+                           type="text"
+                           placeholder="Nom de la fonction"
+                           [(ngModel)]="options.name"
+                           spellcheck="false"
+                    >
+                </mat-form-field>
+                <br>
+                <mat-checkbox [(ngModel)]="options.addDegreeToName">Ajouter le degré au nom</mat-checkbox>
+                <br>
+                <mat-checkbox [(ngModel)]="options.addMethodToName">Ajouter la méthode au nom</mat-checkbox>
+            </div>
         </mat-card-content>
     </mat-card>
     <p>

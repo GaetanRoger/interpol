@@ -35,15 +35,18 @@ export class AppComponent implements AfterContentChecked {
 
     options: GenerateEquationOptions = {
         multiline: false,
-        calculateDenominator: false
+        calculateDenominator: false,
+        x: 'x',
+        name: '\\Pi',
+        addName: true,
+        addDegreeToName: true,
+        addMethodToName: true
     };
 
     x: number;
 
-    xLabel = 'x';
-
     get forXEquals() {
-        return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.xLabel + '=' + this.x;
+        return '\\ \\ \\ \\ \\ \\ \\text{pour } ' + this.options.x + '=' + this.x;
     }
 
     constructor(readonly lagrange: LagrangeService) {
@@ -94,9 +97,7 @@ export class AppComponent implements AfterContentChecked {
     private updateEquation(values: { x: number; y: number }[]) {
         this.equation = this.lagrange.generateEquation(values, {
             ...{
-                calculateDenominator: false,
                 addName: true,
-                x: this.xLabel
             }, ...this.options
         });
 
