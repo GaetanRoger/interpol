@@ -9,6 +9,8 @@ export class LagrangeService {
         calculateDenominator: false,
         addName: false,
         name: '\\Pi',
+        addDegreeToName: true,
+        addMethodToName: true,
         multiline: false
     };
 
@@ -68,7 +70,11 @@ export class LagrangeService {
         // If a name is desired, adds it and return the full equation
         let final = '';
         if (options.addName) {
-            final += options.name + '_{' + values.length + '} (' + options.x + ') ' + alignSymbol + '= ';
+            final += options.name;
+            final += options.addDegreeToName ? '_{' + values.length + '}' : '';
+            final += options.addMethodToName ? '^{L}' : '';
+            final += '(' + options.x + ') ';
+            final += alignSymbol + '= ';
         }
         final += fullEquation;
 
