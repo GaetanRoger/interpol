@@ -8,7 +8,10 @@ export class LagrangeService {
         x: 'x',
         calculateDenominator: false,
         addName: false,
-        name: '\\Pi'
+        name: '\\Pi',
+        addDegreeToName: true,
+        addMethodToName: true,
+        multiline: false
     };
 
     constructor() {
@@ -21,10 +24,11 @@ export class LagrangeService {
         values: { x: number, y: number }[],
         options: GenerateEquationOptions): string {
         options = {...this.defaultGenerateEquationOptions, ...options};
-        console.log(options);
 
         const x = options.x;
         const calculateDenominator = options.calculateDenominator;
+        const alignSymbol = options.multiline ? '&' : '';
+        const alignNewLine = options.multiline ? '\\\\' : '';
 
         // For all values, we want to compute its fraction
         const fracs: { x: number, frac: string }[] = values.map(value => {
@@ -61,20 +65,30 @@ export class LagrangeService {
         });
 
         // Concatenate all fractions
-        const fullEquation = fracAndYs.join('+');
+        const fullEquation = fracAndYs.join(alignNewLine + alignSymbol + '+');
 
         // If a name is desired, adds it and return the full equation
+        let final = '';
         if (options.addName) {
-            return options.name + '_{' + values.length + '} (' + options.x + ') = ' + fullEquation;
-        } else {
-            return fullEquation;
+            final += options.name;
+            final += options.addDegreeToName ? '_{' + values.length + '}' : '';
+            final += options.addMethodToName ? '^{L}' : '';
+            final += '(' + options.x + ') ';
+            final += alignSymbol + '= ';
         }
+        final += fullEquation;
+
+        return final;
     }
 
     computeEquation(
         values: { x: number, y: number }[],
         x: number
     ): number {
+        if (!x) {
+            return null;
+        }
+
         const fracs: { x: number; value: number; }[] = values.map(value => {
             // We retrieve all values except the one we are currently computing
             const otherValues = values.filter(v => v.x !== value.x);
@@ -101,6 +115,6 @@ export class LagrangeService {
             return value.y * fracs.find(frac => frac.x === value.x).value;
         });
 
-        return fracsAndYs.reduce((pre, curr) => pre + curr);
+        return fracsAndYs.reduce((pre, curr) => pre + curr, null);
     }
 }
